@@ -38,7 +38,7 @@ public class MainApp {
          System.out.println();
       }
 
-         System.out.println("Пользователь с автомобилем модели V серии 4 : " + userService.getUserByCar("T", 3));
+         System.out.println("Пользователь с автомобилем модели Audi серии 1 : " + userService.getUserByCar("Audi", 1   ));
 
 
       context.close();
