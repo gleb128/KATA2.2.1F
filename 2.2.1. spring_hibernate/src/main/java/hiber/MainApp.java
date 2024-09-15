@@ -22,6 +22,7 @@ public class MainApp {
       userService.addUserAndCar((new User("User2", "Lastname2", "user2@mail.ru")), new Car("Audi", 1));
       userService.addUserAndCar((new User("User3", "Lastname3", "user3@mail.ru")), new Car("T", 3));
       userService.addUserAndCar((new User("User4", "Lastname4", "user4@mail.ru")), new Car("V", 4));
+      userService.addUserAndCar((new User("User5", "Lastname5", "user5@mail.ru")), new Car("TV", 7));
 
 
 
@@ -36,6 +37,8 @@ public class MainApp {
          System.out.println("Car = "+ user.getCar());
          System.out.println();
       }
+
+         System.out.println("Пользователь с автомобилем модели V серии 4" + userService.getUserByCar(new Car("V", 4)));
 
 
       context.close();

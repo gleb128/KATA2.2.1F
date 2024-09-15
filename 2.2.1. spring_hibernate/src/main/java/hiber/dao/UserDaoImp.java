@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -32,6 +33,28 @@ public class UserDaoImp implements UserDao {
    public void addUserAndCar(User user, Car car) {
       user.setCar(car);
       sessionFactory.getCurrentSession().save(user);
+   }
+
+   @Override
+   public User getUserByCar(Car car) {
+      String model = car.getModel();
+      int series  = car.getSeries();
+      try {
+         Session session = sessionFactory.getCurrentSession();
+         TypedQuery<User> query = session.createQuery("from User u where u.car.model = :model and u.car.series = :series ", User.class);
+         query.setParameter("model", model);
+         query.setParameter("series", series);
+         query.setMaxResults(1);
+         return query.getSingleResult();
+      }
+      catch (NoResultException e) {
+         throw new RuntimeException("Пользователь, владеющий таким автомобилем не найден в БД", e);
+      }
+      catch (RuntimeException e) {
+         throw new RuntimeException("Найдено несколько пользователей с таким автомобилем", e);
+      }
+      ////////////// В случае если в бд несколько юзеров с одниковыми моделями и сериями машин, лучше возвращать лист юзеров
+      ////////////// Но по условию задачи нужно  вернуть именно одного юзера, поэтому сделал так
    }
 
 
