@@ -1,5 +1,4 @@
 package hiber.model;
-
 import javax.persistence.*;
 
 @Entity
